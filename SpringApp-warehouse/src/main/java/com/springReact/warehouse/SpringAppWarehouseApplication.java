@@ -1,8 +1,12 @@
 package com.springReact.warehouse;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import com.springReact.warehouse.ProductRepository.ProductRepository;
+import com.springReact.warehouse.product.ProductModel;
 
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -15,7 +19,17 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 public class SpringAppWarehouseApplication {
 
+	@Bean
+	public CommandLineRunner demo(ProductRepository productRepository) {
+		return (args) -> {
+			productRepository.save(new ProductModel("A234","House1", 12));
+			productRepository.save(new ProductModel("C234","House3", 56));
+			productRepository.save(new ProductModel("D3453","House4", 72));
+			
+		};
+	}
 
+	
 	@Bean
 	public Docket swaggerDocket() {
 
