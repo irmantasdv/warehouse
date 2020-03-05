@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springReact.warehouse.product.ProductModel;
@@ -19,8 +21,10 @@ import io.swagger.annotations.Tag;
 
 @Api(value = "ProductController", tags = { "ProductModel controller" })
 @SwaggerDefinition(tags = { @Tag(name = "getProducts()", description = "returns all products"),
-		@Tag(name = "findProductById(long id)", description = "returns all products"),
-		@Tag(name = "findProductById(long id)", description = "returns all products") })
+		@Tag(name = "findProductById(long id)", description = "returns one product"),
+		@Tag(name = "deletePrById(long id)", description = "dlete product by id"),
+		@Tag(name = "postProduct(ProductModel product)", description = "create new product")
+})
 @RestController
 public class ProductController {
 
@@ -43,5 +47,10 @@ public class ProductController {
 	@DeleteMapping(value = "/products/{id}")
 	public ResponseEntity<?> deleteProduct(@PathVariable long id) {
 		return productService.deleteProduct(id);
+	}
+	@ApiOperation(value = "create new product", tags = "postProduct(ProductModel product)")
+	@PostMapping("/products/product")
+	public ResponseEntity<ProductModel> postProduct(ProductModel product) {
+		return productService.createProduct(product);
 	}
 }
