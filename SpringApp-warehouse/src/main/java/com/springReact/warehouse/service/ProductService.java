@@ -9,7 +9,9 @@ import com.springReact.warehouse.product.ProductModel;
 public interface ProductService {
 
 	List<ProductModel> getProducts();
-	
+
 	ResponseEntity<ProductModel> getProductById(Long id);
+
+	ResponseEntity<?> deleteProduct(Long id);
 
 }

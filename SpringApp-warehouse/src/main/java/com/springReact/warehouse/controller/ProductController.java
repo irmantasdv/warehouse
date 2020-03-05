@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ import io.swagger.annotations.Tag;
 
 @Api(value = "ProductController", tags = { "ProductModel controller" })
 @SwaggerDefinition(tags = { @Tag(name = "getProducts()", description = "returns all products"),
+		@Tag(name = "findProductById(long id)", description = "returns all products"),
 		@Tag(name = "findProductById(long id)", description = "returns all products") })
 @RestController
 public class ProductController {
@@ -35,5 +37,11 @@ public class ProductController {
 	@GetMapping(value = "/products/{id}")
 	public ResponseEntity<ProductModel> findProductById(@PathVariable long id) {
 		return productService.getProductById(id);
+	}
+
+	@ApiOperation(value = "delete product by id", tags = "deletePrById(long id)")
+	@DeleteMapping(value = "/products/{id}")
+	public ResponseEntity<?> deleteProduct(@PathVariable long id) {
+		return productService.deleteProduct(id);
 	}
 }

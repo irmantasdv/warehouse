@@ -29,4 +29,12 @@ public class ProductServiceImplementation implements ProductService {
 				.orElse(ResponseEntity.notFound().build());
 	}
 
+	@Override
+	public ResponseEntity<?> deleteProduct(Long id) {
+		return productRepository.findById(id).map(record -> {
+			productRepository.deleteById(id);
+			return ResponseEntity.ok().body(record);
+		}).orElse(ResponseEntity.notFound().build());
+	}
+
 }
