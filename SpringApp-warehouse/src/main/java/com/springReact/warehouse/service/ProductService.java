@@ -3,9 +3,8 @@ package com.springReact.warehouse.service;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import com.springReact.warehouse.product.ProductModel;
+import com.springReact.warehouse.model.ProductModel;
 
 public interface ProductService {
 

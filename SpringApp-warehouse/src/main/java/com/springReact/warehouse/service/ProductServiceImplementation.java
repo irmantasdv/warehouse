@@ -1,6 +1,7 @@
 package com.springReact.warehouse.service;
 
 import java.net.URI;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.springReact.warehouse.ProductRepository.ProductRepository;
-import com.springReact.warehouse.product.ProductModel;
+import com.springReact.warehouse.repository.ProductRepository;
+import com.springReact.warehouse.model.ProductModel;
 
 @CrossOrigin
 @Service
