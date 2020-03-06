@@ -1,9 +1,14 @@
-package com.springReact.warehouse.product;
+package com.springReact.warehouse.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
@@ -23,11 +28,16 @@ public class ProductModel {
 	@ApiModelProperty(name = "qty", value = "5", notes = "product quantity")
 	private int qty;
 
-	public ProductModel(String sku, String name, int qty) {
-		super();
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "products")
+	@JsonIgnore
+	private Category category;
+
+	public ProductModel(String sku, String name, int qty, Category category) {
 		this.sku = sku;
 		this.name = name;
 		this.qty = qty;
+		this.category = category;
 	}
 
 	public ProductModel() {
