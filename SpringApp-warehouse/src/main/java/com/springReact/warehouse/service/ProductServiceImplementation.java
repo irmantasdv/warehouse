@@ -42,11 +42,21 @@ public class ProductServiceImplementation implements ProductService {
 	@Override
 	public ResponseEntity<ProductModel> createProduct(ProductModel product) {
 		productRepository.save(product);
-		
+
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(product.getId())
 				.toUri();
 		return ResponseEntity.created(uri).body(product);
 
 	}
 
+	@Override
+	public ResponseEntity<ProductModel> updateProduct(Long id, ProductModel product) {
+		return productRepository.findById(id).map(record -> {
+			record.setName(product.getName());
+			record.setQty(product.getQty());
+			record.setSku(product.getSku());
+			ProductModel updated = productRepository.save(record);
+			return ResponseEntity.ok().body(updated);
+		}).orElse(ResponseEntity.notFound().build());
+	}
 }
