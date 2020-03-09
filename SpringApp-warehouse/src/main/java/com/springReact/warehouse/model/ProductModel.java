@@ -7,8 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
@@ -22,6 +22,8 @@ public class ProductModel {
 	@ApiModelProperty(name = "id", value = "2", notes = "automatically generated value")
 	private Long id;
 	@ApiModelProperty(name = "sku", value = "A12", notes = "SKU is a unique numerical identifying number that refers to a specific stock item in a retailer's inventory or product catalog.")
+	@NotNull(message = "sku can't be null")
+	@Size(min = 2, max = 12, message = "from 2 to 12")
 	private String sku;
 	@ApiModelProperty(name = "name", value = "demo name", notes = "product name")
 	private String name;
@@ -29,8 +31,7 @@ public class ProductModel {
 	private int qty;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "products")
-	@JsonIgnore
+	@JoinColumn(name = "categoryId")
 	private Category category;
 
 	public ProductModel(String sku, String name, int qty, Category category) {
@@ -69,6 +70,10 @@ public class ProductModel {
 
 	public Long getId() {
 		return id;
+	}
+
+	public Long getCategoryId() {
+		return category.getId();
 	}
 
 	@Override
