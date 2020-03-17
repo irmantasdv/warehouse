@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ import io.swagger.annotations.Tag;
 		@Tag(name = "deletePrById(long id)", description = "dlete product by id"),
 		@Tag(name = "postProduct(ProductModel product)", description = "create new product"),
 		@Tag(name = "updateProduct(ProductModel product)", description = "create new product") })
+@CrossOrigin
 @RestController
 public class ProductController {
 
@@ -47,7 +49,7 @@ public class ProductController {
 	}
 
 	@ApiOperation(value = "delete product by id", tags = "deletePrById(long id)")
-	@DeleteMapping(value = "/products/{id}")
+	@DeleteMapping(path = "/products/{id}")
 	public ResponseEntity<?> deleteProduct(@PathVariable long id) {
 		return productService.deleteProduct(id);
 	}
@@ -59,7 +61,7 @@ public class ProductController {
 	}
 
 	@ApiOperation(value = "update the product", tags = "updateProduct(ProductModel product)")
-	@PutMapping("/products/product/{id}")
+	@PutMapping("/products/{id}")
 	public ResponseEntity<ProductModel> updateProductModel(@RequestParam Long id,@RequestBody ProductModel product) {
 		return productService.updateProduct(id, product);
 	}
